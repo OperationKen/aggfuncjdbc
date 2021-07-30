@@ -1,0 +1,103 @@
+package pres;
+
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class demo {
+	
+	static String url = "jdbc:mysql://localhost:3306/presentation2";
+	static String username = "root";
+	static String password = "root";
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(url, username, password);
+		Statement stmt = conn.createStatement();
+		
+		Scanner inputter = new Scanner(System.in);
+		
+		//average
+		//String query = "SELECT AVG(grade) FROM grades";
+		
+		//sum
+		//String query = "SELECT SUM(grade) FROM grades";
+		
+		menu();
+		
+		int input = 0;
+		do {
+			
+			System.out.print("Input: ");
+			input = inputter.nextInt();
+			
+			switch(input) {
+			case 1:
+				String querySum = "SELECT SUM(grade) FROM class_grades";
+				ResultSet sumNum = stmt.executeQuery(querySum);
+				while(sumNum.next()) {
+					System.out.println("sum() = " + sumNum.getInt(1));
+				}
+				break;
+			case 2:
+				String queryAvg = "SELECT AVG(grade) FROM class_grades";
+				ResultSet avgNum = stmt.executeQuery(queryAvg);
+				while(avgNum.next()) {
+					System.out.println("avg() = " + avgNum.getFloat(1));
+				}
+				break;
+			case 3:
+				String queryMin = "SELECT MIN(grade) FROM class_grades";
+				ResultSet minNum = stmt.executeQuery(queryMin);
+				while(minNum.next()) {
+					System.out.println("min() = " + minNum.getInt(1));
+				}
+				break;
+			case 4:
+				String queryMax = "SELECT MAX(grade) FROM class_grades";
+				ResultSet maxNum = stmt.executeQuery(queryMax);
+				while(maxNum.next()) {
+					System.out.println("max() = " + maxNum.getInt(1));
+				}
+				break;
+			case 5:
+				String queryCount = "SELECT COUNT(grade) FROM class_grades";
+				ResultSet countStudents = stmt.executeQuery(queryCount);
+				while(countStudents.next()) {
+					System.out.println("count() = " + countStudents.getInt(1));
+				}
+				break;
+			case 6:
+				String queryCountClassTwo = "SELECT COUNT(class) FROM class_grades WHERE class = 2";
+				ResultSet classTwo = stmt.executeQuery(queryCountClassTwo);
+				while(classTwo.next()) {
+					System.out.println("# of students in class 2 = " + classTwo.getInt(1));
+				}
+				String queryCountClassOne = "SELECT COUNT(class) FROM class_grades WHERE class = 1";
+				ResultSet classOne = stmt.executeQuery(queryCountClassOne);
+				while(classOne.next()) {
+					System.out.println("# of students in class 1 = " + classOne.getInt(1));
+				}
+
+			}
+			
+		}while(input != 0);
+
+		conn.close();
+		System.exit(0);
+	}
+	
+	public static void menu() {
+		System.out.println("Press 1-5 for a demonstration of the aggregate function:");
+		System.out.println("1. sum()");
+		System.out.println("2. avg()");
+		System.out.println("3. min()");
+		System.out.println("4. max()");
+		System.out.println("5. count()");
+		System.out.println("0. Terminate the program");
+		System.out.println("---------------------------------------------------------");
+	}
+}

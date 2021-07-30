@@ -1,0 +1,61 @@
+package pres;
+
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class demo {
+	
+	static String url = "jdbc:mysql://localhost:3306/presentation2";
+	static String username = "root";
+	static String password = "root";
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(url, username, password);
+		Statement stmt = conn.createStatement();
+		
+		Scanner inputter = new Scanner(System.in);
+		
+		//average
+		//String query = "SELECT AVG(grade) FROM grades";
+		
+		//sum
+		//String query = "SELECT SUM(grade) FROM grades";
+		int input = 0;
+		do {
+			
+			input = inputter.nextInt();
+			
+			switch(input) {
+			case 1:
+				String querySum = "SELECT SUM(grade) FROM grades";
+				ResultSet sumNum = stmt.executeQuery(querySum);
+				while(sumNum.next()) {
+					System.out.println(sumNum.getInt(1));
+				}
+				break;
+			case 2:
+				String queryAvg = "SELECT AVG(grade) FROM grades";
+				ResultSet rs = stmt.executeQuery(queryAvg);
+				while(rs.next()) {
+					System.out.println(rs.getFloat(1));
+				}
+				break;
+			}
+			
+		}while(input != 0);
+		/*ResultSet rs = stmt.executeQuery(query);
+		
+		while(rs.next()) {
+			//double ad = rs.getDouble("grade");
+			System.out.println(rs.getInt(1));
+		}*/
+		conn.close();
+		
+		exit();
+	}
+}
