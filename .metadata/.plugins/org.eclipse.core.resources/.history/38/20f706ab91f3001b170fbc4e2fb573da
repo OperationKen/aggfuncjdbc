@@ -61,7 +61,7 @@ public class demo {
 				System.out.println();
 				break;
 			case 7:
-				System.out.println("SELECT name FROM class_grades GROUP BY name HAVING SUM(grade) < 70;");
+				System.out.println("SELECT name, grade FROM class_grades GROUP BY name HAVING SUM(grade) < 70;");
 				simpleConditionSecond(stmt);
 				System.out.println();
 				break;

@@ -61,7 +61,8 @@ public class demo {
 				System.out.println();
 				break;
 			case 7:
-				System.out.println("SELECT name FROM class_grades GROUP BY name HAVING SUM(grade) < 70;");
+				System.out.println("SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 1;");
+				System.out.println("SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 2;");
 				simpleConditionSecond(stmt);
 				System.out.println();
 				break;
@@ -128,7 +129,7 @@ public class demo {
 	}
 	
 	public static void simpleConditionSecond(Statement stmt)throws ClassNotFoundException, SQLException {
-		String queryCountClassOne = "SELECT name from class_grades group by name having sum(grade) < 70";
+		String queryCountClassOne = "SELECT name, grade from class_grades group by name having sum(grade) < 70";
 		ResultSet classOne = stmt.executeQuery(queryCountClassOne);
 		while(classOne.next()) {
 			System.out.println(classOne.getString(1));

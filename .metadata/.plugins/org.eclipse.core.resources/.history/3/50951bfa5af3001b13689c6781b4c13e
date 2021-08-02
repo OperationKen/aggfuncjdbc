@@ -30,41 +30,29 @@ public class demo {
 			
 			switch(input) {
 			case 1:
-				System.out.println("SELECT SUM(grade) FROM class_grades;");
+				System.out.println("Syntax: SELECT SUM(grade) FROM class_grades");
 				sum(stmt);
-				System.out.println();
 				break;
 			case 2:
-				System.out.println("SELECT AVG(grade) FROM class_grades;");
 				avg(stmt);
-				System.out.println();
+				//Syntax: SELECT AVG(grade) FROM class_grades;
 				break;
 			case 3:
-				System.out.println("SELECT MIN(grade) FROM class_grades;");
 				min(stmt);
-				System.out.println();
+				//Syntax: SELECT MIN(grade) FROM class_grades;
 				break;
 			case 4:
-				System.out.println("SELECT MAX(grade) FROM class_grades;");
 				max(stmt);
-				System.out.println();
+				//Syntax: SELECT MAX(grade) FROM class_grades;
 				break;
 			case 5:
-				System.out.println("SELECT COUNT(grade) FROM class_grades;");
 				count(stmt);
-				System.out.println();
+				//Syntax: SELECT COUNT(grade) FROM class_grades;
 				break;
 			case 6:
-				System.out.println("SELECT COUNT(class) FROM class_grades WHERE class = 1;");
-				System.out.println("SELECT COUNT(class) FROM class_grades WHERE class = 2;");
 				simpleCondition(stmt);
-				System.out.println();
-				break;
-			case 7:
-				System.out.println("SELECT name FROM class_grades GROUP BY name HAVING SUM(grade) < 70;");
-				simpleConditionSecond(stmt);
-				System.out.println();
-				break;
+				//Syntax: SELECT COUNT(class) FROM class_grades WHERE class = 1;
+				//Syntax: SELECT COUNT(class) FROM class_grades WHERE class = 2;
 			}
 			
 		}while(input != 0);
@@ -127,23 +115,14 @@ public class demo {
 		}
 	}
 	
-	public static void simpleConditionSecond(Statement stmt)throws ClassNotFoundException, SQLException {
-		String queryCountClassOne = "SELECT name from class_grades group by name having sum(grade) < 70";
-		ResultSet classOne = stmt.executeQuery(queryCountClassOne);
-		while(classOne.next()) {
-			System.out.println(classOne.getString(1));
-		}
-	}
-	
 	public static void menu() {
-		System.out.println("Press 1-7 for a demonstration of the aggregate function:");
+		System.out.println("Press 1-5 for a demonstration of the aggregate function:");
 		System.out.println("1. sum()");
 		System.out.println("2. avg()");
 		System.out.println("3. min()");
 		System.out.println("4. max()");
 		System.out.println("5. count()");
 		System.out.println("6. Conditional - WHERE clause");
-		System.out.println("7. Conditional - HAVING clause and GROUP BY statement");
 		System.out.println("0. Terminate the program");
 		System.out.println("---------------------------------------------------------");
 	}

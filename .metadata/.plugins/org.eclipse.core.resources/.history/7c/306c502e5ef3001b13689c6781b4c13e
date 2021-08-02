@@ -61,7 +61,8 @@ public class demo {
 				System.out.println();
 				break;
 			case 7:
-				System.out.println("SELECT name FROM class_grades GROUP BY name HAVING SUM(grade) < 70;");
+				System.out.println("SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 1;");
+				System.out.println("SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 2;");
 				simpleConditionSecond(stmt);
 				System.out.println();
 				break;
@@ -128,15 +129,21 @@ public class demo {
 	}
 	
 	public static void simpleConditionSecond(Statement stmt)throws ClassNotFoundException, SQLException {
-		String queryCountClassOne = "SELECT name from class_grades group by name having sum(grade) < 70";
+		String queryCountClassOne = "SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 1";
 		ResultSet classOne = stmt.executeQuery(queryCountClassOne);
 		while(classOne.next()) {
-			System.out.println(classOne.getString(1));
+			System.out.println("# of students in class 1 = " + classOne.getInt(1));
+		}
+		
+		String queryCountClassTwo = "SELECT COUNT(id), class FROM class_grades GROUP BY class HAVING class = 2";
+		ResultSet classTwo = stmt.executeQuery(queryCountClassTwo);
+		while(classTwo.next()) {
+			System.out.println("# of students in class 2 = " + classTwo.getInt(1));
 		}
 	}
 	
 	public static void menu() {
-		System.out.println("Press 1-7 for a demonstration of the aggregate function:");
+		System.out.println("Press 1-5 for a demonstration of the aggregate function:");
 		System.out.println("1. sum()");
 		System.out.println("2. avg()");
 		System.out.println("3. min()");
